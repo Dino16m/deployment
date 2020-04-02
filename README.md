@@ -1,5 +1,5 @@
-#ReadMe of deployment
-##Description
+# ReadMe of deployment
+## Description
 This is a collection of scripts in bash and python which **I** use for deployment of my projects.
 It is highly opinionated and makes certain assumptions including;
 1. That your hosting environment is a linux server.
@@ -11,7 +11,7 @@ It is highly opinionated and makes certain assumptions including;
 
 All these parts, however, are easily modified.
 
-##Usage
+## Usage
 `sudo ./deploy.sh SERVERNAME=example.com SERVERALIAS=www.example.com STACK=python SERVERADMIN=admin@example.com APACHEDIR=/etc/apache2/sites-available`
 
 >`SERVERNAME` and  `Stack` are required and have no defaults.

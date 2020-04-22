@@ -17,7 +17,7 @@ class BaseSetUp:
 	def init(cls, arguments, apachedir, appname):
 		cls.appname = appname
 		filename = appname + '.conf'
-		sec_filename = appname + '-le-ssl' + '.conf'
+		sec_filename = os.path.join(apachedir, appname + '-le-ssl' + '.conf')
 		if not os.path.isfile(os.path.join(apachedir, sec_filename)):
 			sys.exit('It seems that certbot has not made a file for you, restart installation')
 		unavailable = set(cls.REQUIRED) - set(arguments.keys())

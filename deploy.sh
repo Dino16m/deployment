@@ -36,7 +36,7 @@ if [[ $? == 1 ]]; then
 	exit
 fi
 
-a2ensite "${APPNAME}.conf":
+a2ensite "${APPNAME}":
 systemctl restart apache2
 
 certbot --apache -d $SERVERNAME -d $SERVERALIAS

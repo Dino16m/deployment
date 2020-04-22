@@ -41,7 +41,11 @@ systemctl restart apache2
 
 certbot --apache -d $SERVERNAME -d $SERVERALIAS
 
-python3 py_setup.py --servername $SERVERNAME --serveralias $SERVERALIAS --serveradmin $SERVERADMIN --apachedir $APACHEDIR --appname $APPNAME --stack $STACK
+if [[ $? == 1 ]]; then
+	exit
+fi
+
+python3 main_setup.py --servername $SERVERNAME --serveralias $SERVERALIAS --serveradmin $SERVERADMIN --apachedir $APACHEDIR --appname $APPNAME --stack $STACK
 
 if [[ $? == 1 ]]; then
 	exit

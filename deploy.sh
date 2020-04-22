@@ -18,9 +18,9 @@ do
 
 done
 
-[[ -n $SERVERNAME ]] || echo "SERVERNAME must be set" ; exit
+[[ -n $SERVERNAME ]] || { echo "SERVERNAME must be set" ; exit; }
 
-[[ -n $STACK  ]] || echo "STACK must be set" ; exit
+[[ -n $STACK  ]] || { echo "STACK must be set" ; exit; }
 	
 [[ -n $SERVERALIAS  ]] || SERVERALIAS="www.${SERVERNAME}"
 	
@@ -28,7 +28,7 @@ done
 	
 [[ -n $APACHEDIR  ]] || APACHEDIR="/mnt/e/xampp/htdocs/deployment/" 
 
-[[ -n APPNAME  ]] || APPNAME=${SERVERNAME//./}
+[[ -n $APPNAME  ]] || APPNAME=${SERVERNAME//./}
 
 python3 setup.py --servername $SERVERNAME --serveralias $SERVERALIAS --serveradmin $SERVERADMIN --apachedir $APACHEDIR --appname $APPNAME
 

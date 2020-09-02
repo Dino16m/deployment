@@ -1,5 +1,4 @@
-#!/bin/bash
-
+SCRIPT_PATH=$(dirname "$(realpath -s "$0")")
 for ARGUMENT in "$@"
 do
 	[[ $ARGUMENT =~  "=" ]] || continue
@@ -26,11 +25,11 @@ done
 	
 [[ -n $SERVERADMIN  ]] || SERVERADMIN="default"
 	
-[[ -n $APACHEDIR  ]] || APACHEDIR="/mnt/e/xampp/htdocs/deployment/" 
+[[ -n $APACHEDIR  ]] || APACHEDIR="/etc/apache2/sites-enabled" 
 
 [[ -n $APPNAME  ]] || APPNAME=${SERVERNAME//./}
 
-python3 setup.py --servername $SERVERNAME --serveralias $SERVERALIAS --serveradmin $SERVERADMIN --apachedir $APACHEDIR --appname $APPNAME
+python3 "$SCRIPT_PATH/setup.py" --servername $SERVERNAME --serveralias $SERVERALIAS --serveradmin $SERVERADMIN --apachedir $APACHEDIR --appname $APPNAME
 
 if [[ $? == 1 ]]; then
 	exit
@@ -45,7 +44,7 @@ if [[ $? == 1 ]]; then
 	exit
 fi
 
-python3 main_setup.py --servername $SERVERNAME --serveralias $SERVERALIAS --serveradmin $SERVERADMIN --apachedir $APACHEDIR --appname $APPNAME --stack $STACK
+python3 "$SCRIPT_PATH/main_setup.py" --servername $SERVERNAME --serveralias $SERVERALIAS --serveradmin $SERVERADMIN --apachedir $APACHEDIR --appname $APPNAME --stack $STACK
 
 if [[ $? == 1 ]]; then
 	exit
@@ -73,5 +72,5 @@ read DbPassword
 
 mysql -u $RootMysqlUser -p $MysqlRootPassword <<EOF
 CREATE DATABASE $DbName DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-GRANT ALL ON ${DbName}.* TO '${DbUser}'@'localhost' IDENTIFIED BY $DbPassword
+GRANT ALL ON ${DbName}.* TO '${DbUser}'@'localhost' IDENTIFIED BY $DbPassword;
 EOF

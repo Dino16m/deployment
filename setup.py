@@ -3,12 +3,14 @@ import argparse
 import sys
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def init(arguments, apachedir, appname):
 	filename = appname + '.conf'
 	if os.path.isfile(os.path.join(apachedir, filename)):
 		print("file {} already exists, leaving it alone....".format(os.path.join(apachedir, filename)))
 		sys.exit(1)
-	raw_data = read_file('init_install.conf')
+	raw_data = read_file(os.path.join(BASE_DIR,'init_install.conf'))
 	for key, argument in arguments.items():
 		raw_data = raw_data.replace("{{"+key+"}}", argument)
 	if write_file(os.path.join(apachedir, filename), raw_data):

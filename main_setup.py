@@ -84,7 +84,7 @@ class PhpSetup(BaseSetUp):
 		print('We are about to setup a supervisor queue, please type ctrl+c if you don\'t want that to happen')
 		supervisor_dir = str(input("Input the full path to supervisor conf.d, defaults to /etc/supervisor/conf.d/ if empty: ")) or '/etc/supervisor/conf.d/'
 		artisan_root = str(input("Input the full path to artisan"))
-		sup_src_file = read_file('supervisor.conf')
+		sup_src_file = read_file(os.path.join(BASE_DIR,'supervisor.conf'))
 		sup_src_file = sup_src_file.replace("{{queuename}}", cls.appname)
 		sup_src_file = sup_src_file.replace("{{artisan_root}}", artisan_root)
 		if write_file(os.path.join(supervisor_dir, cls.appname+'.conf')):
@@ -110,7 +110,7 @@ class PhpSetup(BaseSetUp):
 		for req in wp_requirements:
 			arguments[req] = input('input the value for {} : '.format(req))
 		arguments.update(cls.get_wp_secrets())
-		src_wp_config = read_file('wp-config-sample.php')
+		src_wp_config = read_file(os.path.join(BASE_DIR,'wp-config-sample.php'))
 		for key, argument in arguments.items():
 			src_wp_config = src_wp_config.replace("{{"+key+"}}", argument)
 		if write_file(os.path.join(documentroot, 'wp-config.php'), src_wp_config):

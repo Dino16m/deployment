@@ -7,6 +7,7 @@ import shutil
 import random
 import string as charset
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 class BaseSetUp:
 	REQUIRED = ['servername', 'serveralias', 'serveradmin']
 	CONF_FILE = ''
@@ -32,7 +33,8 @@ class BaseSetUp:
 			sys.exit('SSLCertificateKeyFile not set in {}, aborting'.format(sec_filename))
 		arguments['sslcertfile'] = sslcertfile.group()
 		arguments['sslkeyfile'] = sslkeyfile.group()
-		raw_data = read_file(cls.CONF_FILE)
+		conf_file = os.path.join(BASE_DIR, cls.CONF_FILE)
+		raw_data = read_file(conf_file)
 		for key, argument in arguments.items():
 			raw_data = raw_data.replace("{{"+key+"}}", argument)
 		if append_file(os.path.join(apachedir, filename), raw_data):

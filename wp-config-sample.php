@@ -34,6 +34,8 @@ define( 'DB_HOST', '{{db_host}}' );
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
 
+define('FS_METHOD', 'direct');
+
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 

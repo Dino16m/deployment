@@ -39,6 +39,8 @@ class BaseSetUp:
 			raw_data = raw_data.replace("{{"+key+"}}", argument)
 		if append_file(os.path.join(apachedir, filename), raw_data):
 			print('Config file for https set up')
+			print('data is ', raw_data)
+			print('apache file', os.path.join(apachedir, filename))
 			os.remove(os.path.join(apachedir, sec_filename))
 		else:
 			sys.exit('Could not set up config file for https, aborting...')
@@ -58,7 +60,7 @@ class PySetUp(BaseSetUp):
 
 class PhpSetup(BaseSetUp):
 	REQUIRED = ['servername', 'serveralias', 'serveradmin', 'documentroot']
-
+	CONF_FILE = 'php_secure.conf'
 	@classmethod
 	def hook(cls):
 		print('If this installation is Laravel, enter 1')
